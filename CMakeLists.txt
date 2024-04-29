@@ -15,3 +15,6 @@ set(Common_Inc_Dir ${PROJECT_SOURCE_DIR}/include)
 
 add_executable(set_device src/set_device.cu)
 target_include_directories(set_device PRIVATE ${Common_Inc_Dir})
+
+add_executable(error_check src/error_check.cu)
+target_include_directories(error_check PRIVATE ${Common_Inc_Dir})

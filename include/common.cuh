@@ -1,10 +1,21 @@
 #ifndef __COMMON_CUH__
 #define __COMMON_CUH__
 
+// 错误检查函数
+// filename 一般使用__FILE__ 参数lineNumber 一般使用 __LINE__
+cudaError_t ErrorCheck(cudaError_t error_code, const char *filename, int lineNumber) {
+    if (error_code != cudaSuccess) {
+        printf("CUDA error:\r\ncode = %d, name = %s ,description = %s\r\nfile = %s, line = %d\r\n",error_code, 
+        cudaGetErrorName(error_code), cudaGetErrorString(error_code), filename, lineNumber);
+        return error_code;
+    }
+    return error_code;
+}
+
 void SetGpu(){
     // 1、检测gpu数量
     int id_device_count = 0;
-    cudaError_t error = cudaGetDeviceCount(&id_device_count);
+    cudaError_t error = ErrorCheck(cudaGetDeviceCount(&id_device_count), __FILE__, __LINE__);
     if (error != cudaSuccess || id_device_count == 0) {
         printf("No CUDA campatable GPU found!\n");
         exit(-1);
