@@ -22,10 +22,13 @@ void __global__ hello_from_gpu(){
     
 }
 
+void __global__ add(int x, int y) {
+    int res = x + y;
+}
+
 int main() {
-    printf("hellow world\n");
     // 1、主机代码
-    hello_from_gpu<<<1024,1>>>(); // 设定设备的线程模型， <<<1,1>>> 第一个1为线程块， 第二个为线程块中的线程数量。
+    hello_from_gpu<<<2,16>>>(); // 设定设备的线程模型， <<<1,1>>> 第一个1为grid块gridDim.x， 第二个为线程块中的线程块(线程数量)blickDim.x。
     // 2、核函数的调用
     // 等待gpu设备执行完毕。
     cudaDeviceSynchronize();

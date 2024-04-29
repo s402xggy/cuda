@@ -11,5 +11,7 @@ set(CUDA_NVCC_FLAGS_DEBUG   "-std=c++17 -O0 -g")
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} 
     -gencode arch=compute_87,code=compute_87
 )
+set(Common_Inc_Dir ${PROJECT_SOURCE_DIR}/include)
 
-add_executable(hello src/hello.cu)
+add_executable(set_device src/set_device.cu)
+target_include_directories(set_device PRIVATE ${Common_Inc_Dir})
